@@ -1,0 +1,34 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "dotenv -e .env.dev -- prisma migrate dev && prisma generate && ts-node-dev --ignore-watch node_modules src/app.ts",
+    "start:prod": "dotenv -e .env.prod -- prisma migrate deploy && prisma generate && npm -s run build && node dist/app",
+    "build": "nest build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.5",
+    "@types/node": "^20.14.5",
+    "dotenv-cli": "^7.4.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.10.4",
+    "@graphql-tools/load-files": "^7.0.0",
+    "@prisma/client": "^5.15.1",
+    "@types/jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5",
+    "cross-fetch": "^4.0.0",
+    "dotenv": "^16.4.5",
+    "graphql": "^16.8.2",
+    "jsonwebtoken": "^9.0.2",
+    "nexus": "^1.3.0",
+    "prisma": "^5.15.1"
+  }
+}

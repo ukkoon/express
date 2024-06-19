@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LoginType {
+  ID_PW
+  KAKAO
+  NAVER
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  //로그인 타입 IDPW, KAKAO, NAVER
+  loginType LoginType
+
+  //로그인 ID / PW
+  loginId      String  @unique
+  loginPw      String
+  oAuthId      String?
+  oAuthPayload Json?
+
+  //닉네임
+  name String
+
+  //국가번호 countryCode
+  countryCode Int
+
+  //국가번호 제외 연락처 1040250015
+  phoneNum String
+
+  //저장한 지역 목록
+  locations Location[]
+
+  //알림 관련 
+  notifications Notification[]
+  fcmTokens     FcmToken[]
+
+  @@unique([countryCode, phoneNum])
+}
+
+model Location {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //노출 명칭 (서울시, 남양주시, 경기도, 강남구, 전국)
+  label     String
+  
+  //위도 (ex. 37.497968)
+  latitude  Float
+  //경도 (ex. 127.0400469)
+  longitude Float
+
+  //전체 주소 (ex. 서울시 강남구 강남대로 지하396 (역삼 1동 858))
+  address String
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+  isRead    Boolean  @default(false)
+
+  title String
+  body  String
+  data  Json?
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model FcmToken {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  token String @unique
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
