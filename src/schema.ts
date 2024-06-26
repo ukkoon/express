@@ -11,7 +11,10 @@ export default makeSchema({
     },
     types: loadFilesSync([
         path.join(__dirname, "./object/**/*.ts"),
-        path.join(__dirname, "./operation/**/*.ts")
+        path.join(__dirname, "./operation/**/*.ts"),
+
+        path.join(__dirname, "./object/**/*.js"),
+        path.join(__dirname, "./operation/**/*.js")
     ]),
     plugins: [
         fieldAuthorizePlugin(),

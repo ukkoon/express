@@ -25,7 +25,7 @@ export default extendType({
                 let user = await ctx.prisma.user.findUnique({
                     where: {
                         countryCode_phoneNum: {
-                            countryCode: payload.countryCode,
+                            countryCode: parseInt(payload.countryCode),
                             phoneNum: payload.phonenum,
                         }
                     }
@@ -36,9 +36,9 @@ export default extendType({
 
 
                 return ctx.guard.toToken({
-                    id: payload.id,
+                    id: `${user?.id}`,
+                    countryCode: payload.countryCode,
                     phonenum: payload.phonenum,
-                    type: payload.type,
                     verified: true,
                 }, ACCESS_TOKEN_EXP_IN)
             },

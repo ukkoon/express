@@ -6,11 +6,8 @@ const envFile = process.env.NODE_ENV === 'prod' ? '.env.prod' : '.env.dev';
 // dotenv.config() 호출하여 환경 변수 설정
 const result = dotenv.config({ path: envFile });
 
-console.log(result)
 if (result.error) {
   throw result.error;
 }
-
-console.log(`Environment variables loaded from ${envFile}`);
 
 export default result.parsed;

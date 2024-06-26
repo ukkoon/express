@@ -1,4 +1,5 @@
 import { extendType, nonNull, stringArg } from "nexus";
+import { AccessTokenPayload } from "../../interface/token_payloads";
 
 export default extendType({
     type: "Query",
@@ -18,6 +19,9 @@ export default extendType({
                 return notExpired;
             },
             resolve: async (root, args, ctx, info) => {
+                let payload = ctx.guard.toPayload(args.accessToken) as AccessTokenPayload;
+
+                console.log(payload)
                 return true
             }
         })
