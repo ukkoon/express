@@ -3,3 +3,7 @@ dist
 
 # Keep environment variables out of version control
 .env.*
+
+# runtime-generated files
+nexus-typegen.ts
+schema.graphql
