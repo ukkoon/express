@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "dotenv -e .env.dev -- prisma migrate dev && prisma generate && ts-node-dev --ignore-watch node_modules src/app.ts",
-    "start:prod": "dotenv -e .env.prod -- prisma migrate deploy && prisma generate && npm -s run build && node dist/app",
-    "build": "nest build"
+    "start:dev": "export NODE_ENV=dev && dotenv -e .env.dev -- prisma migrate dev && prisma generate && ts-node-dev --ignore-watch node_modules src/app.ts",
+    "start:prod": "export NODE_ENV=prod && dotenv -e .env.prod -- prisma migrate deploy && prisma generate && npm -s run build && node dist/app",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
