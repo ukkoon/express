@@ -1,9 +1,8 @@
 import fetch from "cross-fetch";
 import jwt from 'jsonwebtoken';
-import { Context } from '../interface/context';
 import { AllowedPayload } from "../interface/token_payloads";
 import { SignUpTypeEnum, SnsIdVerifyPayload } from "./sign_up_type";
-
+import "./config";
 
 export class Guard {
     toPayload(token: string): AllowedPayload {

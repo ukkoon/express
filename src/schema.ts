@@ -1,6 +1,7 @@
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeSchema, fieldAuthorizePlugin } from 'nexus'
 import * as path from "path";
+import "./config";
 
 export default makeSchema({
     features: {
