@@ -13,8 +13,8 @@ export interface AdminAuthorizingTokenPayload extends AccessTokenPayload {
     otp: string;
 }
 
-export interface AdminAccessTokenPayload extends AccessTokenPayload{
-    email:string
+export interface AdminAccessTokenPayload extends AccessTokenPayload {
+    email: string
 }
 
 export interface AdminRefreshTokenPayload extends RefreshTokenPayload {
@@ -22,20 +22,21 @@ export interface AdminRefreshTokenPayload extends RefreshTokenPayload {
 }
 
 export interface MemberAuthorizingTokenPayload extends AccessTokenPayload {
-    phonenum: string;
+    countryCode: number;
+    phoneNum: string;
     authcode: string;
 }
 
 export interface MemberAccessTokenPayload extends AccessTokenPayload {
-    id: string;
+    id: number;
 }
 
 export interface MemberRefreshTokenPayload extends RefreshTokenPayload {
-    id: string
+    id: number
 }
 
 export interface LegacyAccessTokenPayload extends JwtPayload {
-    id: string,
+    id: number,
     type: number,
     iat: number
 }

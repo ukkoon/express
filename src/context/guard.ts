@@ -23,7 +23,7 @@ export class Guard {
                 let naverProfile = await naverResponse.json()
 
                 return {
-                    phonenum: naverProfile.response.mobile_e164.replace("+82", "0").replace(/ |-/g, ""),
+                    phoneNum: naverProfile.response.mobile_e164.replace("+82", "0").replace(/ |-/g, ""),
                     snsId: naverProfile.response.id,
                     verified: naverProfile.resultcode === "00"
                 }
@@ -33,7 +33,7 @@ export class Guard {
 
                 return {
                     snsId: kakaoProfile.id.toString(),
-                    phonenum: kakaoProfile.kakao_account.phone_number.replace("+82", "0").replace(/ |-/g, ""),
+                    phoneNum: kakaoProfile.kakao_account.phone_number.replace("+82", "0").replace(/ |-/g, ""),
                     verified: kakaoResponse.statusText === "OK"
                 };    
 

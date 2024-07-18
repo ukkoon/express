@@ -5,6 +5,10 @@ export const User = objectType({
     name: "User",
     definition(t) {
         t.implements(SharedField)
-        t.boolean("isDeleted")
+        t.nonNull.string("loginType")
+        t.nonNull.string("loginId")
+        t.nonNull.int("countryCode")
+        t.nonNull.string("phoneNum")
+
     }
 })

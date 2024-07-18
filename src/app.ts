@@ -12,7 +12,7 @@ import "./config";
 
 let server = new ApolloServer({
     schema: schema,
-    introspection: true
+    introspection: process.env.NODE_ENV==='dev'
 });
 
 startStandaloneServer(server, {
@@ -22,4 +22,6 @@ startStandaloneServer(server, {
         guard,
         request: context.req
     }),
+}).then((e)=>{
+    console.log(`server running on ${e.url}`)
 });

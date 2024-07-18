@@ -6,6 +6,6 @@ export enum SignUpTypeEnum {
 
 export interface SnsIdVerifyPayload {
     snsId: string
-    phonenum?: string
+    phoneNum?: string
     verified: boolean
 }

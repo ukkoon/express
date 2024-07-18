@@ -43,8 +43,34 @@ model User {
   //알림 관련 
   notifications Notification[]
   fcmTokens     FcmToken[]
+  chatMessages  ChatMessage[]
+  chats         Chat[]         @relation("UserChats")
 
   @@unique([countryCode, phoneNum])
+}
+
+model Chat {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+  users     User[]   @relation("UserChats")
+
+  messages ChatMessage[]
+}
+
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  text   String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+
+  chat   Chat? @relation(fields: [chatId], references: [id])
+  chatId Int?
 }
 
 model Location {
@@ -53,8 +79,8 @@ model Location {
   updatedAt DateTime @updatedAt
 
   //노출 명칭 (서울시, 남양주시, 경기도, 강남구, 전국)
-  label     String
-  
+  label String
+
   //위도 (ex. 37.497968)
   latitude  Float
   //경도 (ex. 127.0400469)

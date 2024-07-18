@@ -1,5 +1,4 @@
-import { interfaceType, nonNull } from "nexus";
-import { DateTime } from "./scalar/date_time";
+import { interfaceType } from "nexus";
 
 export const SharedField = interfaceType({
     name: "SharedField",
@@ -7,6 +6,7 @@ export const SharedField = interfaceType({
         t.nonNull.string("id")
         t.nonNull.string("createdAt")
         t.nonNull.string("updatedAt")
+        t.nonNull.boolean("isDeleted")
     }
 })
 
