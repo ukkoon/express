@@ -9,12 +9,12 @@ export const ChatMessage = objectType({
     definition(t) {
         t.implements(SharedField)
         t.nonNull.string("text")
-        t.nonNull.field("users", {
-            type: list(User),
-            resolve: async (root, args, ctx: Context) => {             
-                return []
-            }
-        })
+        // t.nonNull.field("users", {
+        //     type: list(User),
+        //     resolve: async (root, args, ctx: Context) => {             
+        //         return []
+        //     }
+        // })
         
     }
 })
