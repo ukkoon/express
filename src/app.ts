@@ -33,20 +33,22 @@ const startServer = async () => {
     const wsServer = new WebSocketServer({
         server: httpServer,
         path: '/graphql',
+        perMessageDeflate: false, // 압축 해제 옵션을 비활성화하여 안정성을 높일 수 있습니다.
+        clientTracking: true, // 클라이언트 추적 활성화
     });
 
     const serverCleanup = useServer({
         schema,
         context: async (ctx, msg, args) => {
             // This will be run every time the client sends a subscription request
-            
+
             return {
                 prisma,
                 guard,
                 pubsub,
                 ...ctx
             };
-        },    
+        },
         onConnect: (ctx) => {
             console.log('Connected!');
         },
@@ -54,14 +56,17 @@ const startServer = async () => {
             console.log('Disconnected!');
         },
         onSubscribe: async (ctx, msg) => {
+            console.log('Subscribe!');
             // 여기서 GraphQLErrors를 반환해야 하는 경우를 처리합니다
             return;
         },
         onNext: (ctx, msg, args, result) => {
+            console.log('Next!')
             // 처리된 결과를 논리적으로 반환
             return result;
         },
         onError: (ctx, msg, errors) => {
+            console.log('Error!')
             return errors;
         },
         onComplete: () => {
@@ -86,12 +91,13 @@ const startServer = async () => {
     });
 
     await apolloServer.start();
+
     app.use('/graphql', cors(), express.json(), expressMiddleware(apolloServer, {
         context: async (context) => ({
             prisma,
             guard,
             pubsub,
-            context
+            request: context.req
         })
     }),);
 

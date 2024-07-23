@@ -22,7 +22,7 @@ export default extendType({
             resolve: async (root, args, ctx, info) => {
                 let payload = ctx.guard.toPayload(ctx.request.headers.authorization!) as MemberAccessTokenPayload;
 
-                await ctx.prisma.$transaction(async (prisma:any) => {
+                await ctx.prisma.$transaction(async (prisma: any) => {
                     let chat = await prisma.chat.findFirst({
                         where: {
                             AND: [
@@ -62,7 +62,7 @@ export default extendType({
                         })
                     }
 
-                    await prisma.chatMessage.create({
+                    const message = await prisma.chatMessage.create({
                         data: {
                             text: args.text,
                             chat: {
@@ -77,7 +77,10 @@ export default extendType({
                             }
                         }
                     })
+                    console.log(message)
+                    await ctx.pubsub.publish(chat.id, message);
                 })
+
 
                 return true
             }

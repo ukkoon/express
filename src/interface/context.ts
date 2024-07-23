@@ -6,5 +6,8 @@ export interface Context {
     prisma: PrismaClient,
     guard: Guard,
     pubsub: PubSub,
-    request: { headers: { authorization?: string } },
+    connectionParams: any,
+    request: {
+        headers: { authorization?: string }
+    },
 }

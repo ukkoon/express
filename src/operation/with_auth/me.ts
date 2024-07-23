@@ -8,7 +8,7 @@ export default extendType({
         t.field("me", {
             type: User,
             description: "내 정보를 확인합니다.",
-            authorize: async (root, args, ctx) => {                      
+            authorize: async (root, args, ctx) => {
                 let accessToken = ctx.guard.toPayload(ctx.request.headers.authorization!);
                 let notExpired = Date.now() <= accessToken.exp! * 1000;
                 return notExpired;
